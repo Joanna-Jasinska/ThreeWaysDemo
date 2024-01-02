@@ -11,24 +11,39 @@ export const combatTick = createAsyncThunk(
     const state = thunkAPI.getState();
     const timeline = state.combat.timeline;
     const nextTimeline = [];
+    // console.log(`1 combat-operations-combat/Tick`);
     timeline.forEach((instance) => {
-      let ins = instance;
-      ins.tics += 1;
-      if (ins.css.ticks >= ins.ticks) {
+      // console.log(`2 combat-operations-combat/Tick`);
+      let ins = {
+        hero: instance.hero,
+        css: instance.css,
+        ticks: instance.ticks + 1,
+      };
+      // console.log(`3 combat-operations-combat/Tick`);
+      // ins.tics = instance.tics + 1;
+      // console.log(`4 combat-operations-combat/Tick`);
+      if (ins.ticks >= ins.css.ticks) {
+        // console.log(`Y1 combat-operations-combat/Tick`);
         // the action is finished
-        if (ins.css.next) {
+        const next = ins.css.next();
+        if (next) {
+          // console.log(`Y2 combat-operations-combat/Tick`);
           // add followup action
           nextTimeline.push({
             hero: ins.hero,
-            css: ins.css.next,
+            css: next,
+            // css: ins.css.next,
             ticks: 0,
           });
         }
         return;
       }
+      // console.log(`5 combat-operations-combat/Tick`);
       nextTimeline.push(ins);
+      // console.log(`6 combat-operations-combat/Tick`);
       return;
     });
+    // console.log(`7 combat-operations-combat/Tick`);
     return nextTimeline;
   }
 );

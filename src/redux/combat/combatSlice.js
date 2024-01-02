@@ -17,34 +17,44 @@ const handlePending = (state) => {
   state.isLoading = true;
 };
 
-const createExtraActions = () => {
-  return {
-    combatTick: combatTick(),
-  };
-};
-const extraActions = createExtraActions();
+// const createExtraActions = () => {
+//   return {
+//     combatTick: combatTick(),
+//   };
+// };
+// const extraActions = createExtraActions();
 
 const createExtraReducers = () => {
   return (builder) => {
-    console.log(`0 combatSlice-createExtraReducers-combatTick`);
-    const combatTick = () => {
-      console.log(`1 combatSlice-createExtraReducers-combatTick`);
-      // const { pending, fulfilled, rejected } = extraActions.combatTick;
-      console.log(`2 combatSlice-createExtraReducers-combatTick`);
-      builder.addCase(combatTick.pending, handlePending);
-      // .addCase(pending, handlePending)
-      // .addCase(fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.error = null;
-      //   state.timeline = action.payload;
-      //   state.ticks = state.ticks + 1;
-      // })
-      // .addCase(rejected, handleRejected);
-      console.log(`3 combatSlice-createExtraReducers-combatTick`);
-    };
-    console.log(`4 combatSlice-createExtraReducers-combatTick`);
-    combatTick();
-    console.log(`5 combatSlice-createExtraReducers-combatTick`);
+    // console.log(`0 combatSlice-createExtraReducers-combatTick`);
+    // const combatTick = () => {
+    // console.log(`1 combatSlice-createExtraReducers-combatTick`);
+    // const { pending, fulfilled, rejected } = extraActions.combatTick;
+    // console.log(`2 combatSlice-createExtraReducers-combatTick`);
+    builder
+      .addCase(combatTick.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.timeline = payload;
+        state.ticks = state.ticks + 1;
+      })
+      .addCase(combatTick.rejected, (state, { payload }) => {
+        // state.isError = payload;
+      });
+    // builder
+    //   .addCase(pending, handlePending)
+    //   .addCase(fulfilled, (state, action) => {
+    //     state.isLoading = false;
+    //     state.error = null;
+    //     state.timeline = action.payload;
+    //     state.ticks = state.ticks + 1;
+    //   })
+    //   .addCase(rejected, handleRejected);
+    // console.log(`3 combatSlice-createExtraReducers-combatTick`);
+    // };
+    // console.log(`4 combatSlice-createExtraReducers-combatTick`);
+    // combatTick();
+    // console.log(`5 combatSlice-createExtraReducers-combatTick`);
   };
 };
 
@@ -57,3 +67,4 @@ const combatSlice = createSlice({
 
 // export const combatActions = { ...slice.actions, ...extraActions };
 export const combatReducer = combatSlice.reducer;
+// export default combatSlice.reducer;

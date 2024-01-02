@@ -1,6 +1,7 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { combatReducer } from "./combat/combatSlice";
+// import { combatReducer } from "./combat/combatSlice";
 import {
   persistStore,
   persistReducer,
@@ -19,6 +20,9 @@ import {
 //     },
 //   }),
 // ];
+const middlewareSettings = {
+  serializableCheck: false,
+};
 
 // const authPersistConfig = {
 //   key: "auth",
@@ -47,33 +51,6 @@ import {
 //   key: "equipment",
 //   storage,
 //   whitelist: ["all"],
-// };
-
-// const dungeonPersistConfig = {
-//   key: "dungeon",
-//   storage,
-//   whitelist: [
-//     "inDungeon",
-//     "quests",
-//     "items",
-//     "enemies",
-//     "bosses",
-//     "id",
-//     "name",
-//     "eventName",
-//     "ally",
-//     "player",
-//     "background",
-//     "lv",
-//     "startedLv",
-//     "goldEarned",
-//     "currentSlot",
-//     "slotsDefeated",
-//     "selectedEnemyID",
-//     "readyToEnter",
-//     // "",
-//   ],
-//   // blacklist: ["inDungeon"],
 // };
 
 const combatPersistConfig = {
@@ -114,7 +91,9 @@ export const store = configureStore({
     // game: persistReducer(gamePersistConfig, gameReducer),
     // enemy: persistReducer(enemyPersistConfig, enemyReducer),
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware(middlewareSettings),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   devTools: process.env.NODE_ENV === "development",
 });

@@ -1,12 +1,13 @@
 import { walk } from "./walk";
 
 export const skillJump = {
-  ticks: 10,
-  animation: "skill-jump 1.8s ease infinite", //forwards
+  ticks: 9,
+  // animation: "skillJump 1.8s ease infinite", //forwards
+  animation: "skillJump", //forwards
   next: () => {
     return walk;
   },
-  keyframes: `@keyframes skill-jump {
+  keyframes: `@keyframes skillJump {
     0% {
       transform: translate3d(0, 0, 0);
     }

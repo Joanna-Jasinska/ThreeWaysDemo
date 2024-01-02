@@ -1,0 +1,22 @@
+.btn {
+  /* background-color: #ec1919;
+  background-color: #009ef3;
+  background-color: #40c900;
+  background-color: #ffea00;
+  background-color: #ff9900;
+  background-color: #b144e8; */
+  background-color: white;
+  background-color: darkslategray;
+  border: calc(0.1vw + 0.1vh) solid black;
+  padding: 1vw+1vh;
+  text-align: center;
+  border-radius: calc(2vw + 2vh);
+  box-sizing: border-box;
+  /* border-radius: 2vw; */
+}
+.selected,
+.btn:hover,
+.btn:focus,
+.btn:active {
+  background-color: bisque;
+}
